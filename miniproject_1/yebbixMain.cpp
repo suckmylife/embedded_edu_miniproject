@@ -1,10 +1,5 @@
 #include "yebbixMain.h"
-
-YebbixMain::YebbixMain()
-{
-    
-}
-
+YebbixMain* YebbixMain::instance = nullptr;
 void YebbixMain::show()
 {
     int ch;
@@ -22,11 +17,11 @@ void YebbixMain::show()
         cin >> ch;
         switch(ch) {
             case 1: 
-                login->show();
+                YebbixLogin::getInstance()->show();
                 isOk = false;
                 break;
             case 2:
-                join->show();
+                YebbixJoin::getInstance()->show();
                 isOk = false;
                 break;
             default:

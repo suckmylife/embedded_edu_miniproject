@@ -13,7 +13,6 @@ class YebbixManager {
       YebbixManager();
       ~YebbixManager();
       //화면
-      YebbixMain *Main;
       void CustomerMain(); //고객 메인
       void AdminMain(); // 관리자 메인
 

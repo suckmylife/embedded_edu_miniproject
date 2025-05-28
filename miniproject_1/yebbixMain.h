@@ -9,14 +9,16 @@ using namespace std;
 class YebbixMain
 {
 public:
-    YebbixMain();
+    static YebbixMain* getInstance() {
+        if (!instance)
+            instance = new YebbixMain();
+        return instance;
+    }
     void show();
     ~YebbixMain();
 private:
-    YebbixLogin *login;
-    YebbixJoin *join;
-
-
+    static YebbixMain* instance;
+    YebbixMain(){};
 };
 
 #endif //__YEBBIX_MAIN_H__

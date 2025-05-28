@@ -1,13 +1,8 @@
 #include "yebbixJoin.h"
-
-YebbixJoin::YebbixJoin()
-{
-
-}
-
+YebbixJoin* YebbixJoin::instance = nullptr;
 void YebbixJoin::show()
 {
-    string id_,psw_,company_,name_,team_,position_;
+    string id_,password_,company_,name_,team_,position_;
     cout << "\033[2J\033[1;1H";
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                 YEBBIX : JOIN               " << endl;
@@ -17,7 +12,7 @@ void YebbixJoin::show()
     cin >> id_;
 
     cout << " 비밀번호 생성 : ";
-    cin >> psw_;
+    cin >> password_;
 
     cout << " 회사명 입력 : ";
     cin >> company_;
@@ -32,19 +27,30 @@ void YebbixJoin::show()
     cin >> position_;
 
     setID(id_);
-    setPSW(psw_);
+    setPSW(password_);
     setCompany(company_);
     setName(name_);
     setTeam(team_);
     setPosition(position_);
-    cout << "join!! BEFORE";
-    //join();
+    join();
 }
 
 void YebbixJoin::join()
 {
-    cout << "join!!";
-    ClientDB::save(id,psw,company,name,team,position);
+    client_db->save(id,password,company,name,team,position);
+    Okmessage();
+}
+
+void YebbixJoin::Okmessage()
+{
+    char anw;
+    cout << "\033[2J\033[1;1H";
+    cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    cout << "          YEBBIX : 회원가입 되었습니다        " << endl;
+    cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    cout << " 확인하셨으면 1 을 눌러주세요 : ";
+    cin >> anw;
+    if(anw == '1') YebbixMain::getInstance()->show();
 }
 
 YebbixJoin::~YebbixJoin()

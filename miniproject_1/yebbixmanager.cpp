@@ -8,8 +8,8 @@
 
 YebbixManager::YebbixManager()
 {
-    Main = new YebbixMain;
-    Main->show();
+    
+    YebbixMain::getInstance()->show();
 }
 
 YebbixManager::~YebbixManager()

@@ -1,0 +1,97 @@
+#include "yebbixShop.h"
+YebbixShop* YebbixShop::instance = nullptr;
+void YebbixShop::show()
+{
+    int col_num = 0;
+    string stat;
+    license_table = license_db->load();
+    
+
+    cout << "\033[2J\033[1;1H";
+    cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    cout << "                        YEBBIX : LICENSE                      " << endl;
+    cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    cout << endl << " 주문번호 | 라이센스명 | 내용 " << endl;
+    for (auto& r : license_table) {
+        col_num = 0;
+        for (vector<string>::iterator it = r.begin(); it != next(r.begin(),3); ++it){
+            switch (col_num)
+            {
+            case 0:
+                cout << setw(9)<< *it << " |";
+                break;
+            case 1:
+                cout << setw(11)<< *it << " |";
+                break;
+            case 2:
+                cout << " "<< *it;
+                break;
+            default:
+                break;
+            }
+            
+            col_num++;
+        }
+        cout << endl;
+    }
+    cout<< "원하시는 라이센스의 주문번호를 입력 하세요"<<endl;
+    cout << " > ";
+    
+    cin >> order_num;
+    
+    if(cin){
+       buy_view();
+    }
+    
+}
+
+void YebbixShop::buy_view()
+{
+    string card_num,pin_num;
+    cout << "\033[2J\033[1;1H";
+    cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    cout << "                        YEBBIX : BUY                          " << endl;
+    cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    cout <<" 카드번호를 입력하세요 : ";
+    cin >> card_num;
+    cout <<" 카드 csv를 입력하세요 : ";
+    cin >> pin_num;
+    string userId = YebbixLogin::getInstance()->getID();
+    // time_t : 시간을 초 단위로 저장하는 타입
+    time_t now = time(nullptr);
+
+    // 로컬 시간으로 변환
+    tm* local_tm = localtime(&now);
+
+    // 문자열로 출력
+    asctime(local_tm);
+
+    // 원하는 포맷으로 출력
+    char buffer[100];
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", local_tm);
+     if((product_db->load(userId)).empty())
+        product_db->save("new",buffer,"1.0.0");
+    else
+        product_db->update(userId,buffer);
+    
+    buy_db->save(userId,buffer,order_num,"today","someday",card_num,pin_num);
+    cout << "\033[2J\033[1;1H";
+    cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    cout << "                        구매되었습니다                         " << endl;
+    cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    cout << "  > INPUT ANY KEY : ";
+    string key;
+    cin >> key;
+    if(cin)
+        show();
+}
+
+vector<vector<string>> YebbixShop::getBuyInfo()
+{
+    string userId = YebbixLogin::getInstance()->getID();
+    return buy_db->load(userId);
+}
+
+YebbixShop::~YebbixShop()
+{
+}
