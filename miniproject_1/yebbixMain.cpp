@@ -15,13 +15,14 @@ void YebbixMain::show()
     
     while(isOk){
         cin >> ch;
+        cin.ignore(1000,'\n');
         switch(ch) {
             case 1: 
-                YebbixLogin::getInstance()->show();
+                YebbixManager::getInstance()->setMenu(YebbixLogin::getInstance());
                 isOk = false;
                 break;
             case 2:
-                YebbixJoin::getInstance()->show();
+                YebbixManager::getInstance()->setMenu(YebbixJoin::getInstance());
                 isOk = false;
                 break;
             default:
@@ -30,6 +31,14 @@ void YebbixMain::show()
                 cin.ignore(1000,'\n');
                 break;
         }
+    }
+    return;
+}
+
+void YebbixMain::destroyInstance(){
+    if (instance != nullptr) {
+        delete instance; // 동적으로 할당된 인스턴스 해제
+        instance = nullptr; // 포인터를 nullptr로 만들어 재사용 방지 (안전)
     }
 }
 

@@ -4,8 +4,10 @@
 #include <iostream>
 
 #include "yebbixDatabase/clientDB.h"
+#include "yebbixDatabase/RecordDB.h"
 #include "yebbixMain.h"
 #include "yebbixUI.h"
+#include "yebbixmanager.h"
 
 using namespace std;
 
@@ -31,11 +33,14 @@ public:
     void setName(const string &n)  {  name=n; }// name 값 할당
     void setTeam(const string &t)  {  team=t; }// team 값 할당
     void setPosition(const string &pos)  {  position=pos; }// position 값 할당
+    static void destroyInstance();
+
 private:
-    YebbixJoin(){client_db = new ClientDB();};
+    YebbixJoin();
     static YebbixJoin *instance;
     string id,password,company,name,team,position;
     ClientDB *client_db;
+    RecordDB * record_db;
 };
 
 #endif //__YEBBIX_JOIN_H__

@@ -3,12 +3,14 @@
 
 #include <iostream>
 #include <vector>
-#include <cstdlib>
 
 #include "yebbixShop.h"
 #include "yebbixRecord.h"
-#include "yebbixShop.h"
+#include "yebbixWarnRecord.h"
+#include "yebbixCriticRecord.h"
+
 #include "../yebbixUI.h"
+#include "../yebbixmanager.h"
 
 using namespace std;
 
@@ -26,7 +28,7 @@ public:
     //기능
     void license_shop();
     void version_select();
-
+    static void destroyInstance();
     ~YebbixClientMain();
 private:
     static YebbixClientMain* instance;

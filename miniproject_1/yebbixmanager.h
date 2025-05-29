@@ -3,29 +3,50 @@
 
 #include <stack>
 #include <vector>
+#include <cstdlib>
 
+#include "yebbixJoin.h"
+#include "yebbixLogin.h"
 #include "yebbixMain.h"
 #include "yebbixUI.h"
+
+#include "yebbixClient/yebbixClientMain.h"
+#include "yebbixClient/yebbixCriticRecord.h"
+#include "yebbixClient/yebbixRecord.h"
+#include "yebbixClient/yebbixWarnRecord.h"
+#include "yebbixClient/yebbixShop.h"
 
 using namespace std;
 
 class YebbixManager {
 public:
-  YebbixManager();
+ static YebbixManager* getInstance() {
+        if (!instance)
+            instance = new YebbixManager();
+        return instance;
+    }
+  static void destroyInstance();
+  
   ~YebbixManager();
   //화면
-  void CustomerMain(); //고객 메인
-  void AdminMain(); // 관리자 메인
-  void setMenu();
+  void setMenu(YebbixUI *m);
   void backMenu();
+  void currentMenu();
+  void display();
 
-      //예외처리
+  //기능
+  void quitMenu() { isRunning = false;};
+  bool statMenu() const {return isRunning;}
+  
 
-      //트리거
 
 private:
+  static YebbixManager* instance;
+  YebbixUI *curMenu;
   stack<YebbixUI*> menu;
-      
+
+  bool isRunning;
+  YebbixManager();
 };
 
 #endif    // __YEBBIX_MANAGER_H__

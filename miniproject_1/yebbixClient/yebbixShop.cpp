@@ -38,7 +38,7 @@ void YebbixShop::show()
     cout << " > ";
     
     cin >> order_num;
-    
+    cin.ignore(1000,'\n');
     if(cin){
        buy_view();
     }
@@ -54,8 +54,10 @@ void YebbixShop::buy_view()
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout <<" 카드번호를 입력하세요 : ";
     cin >> card_num;
+    cin.ignore(1000,'\n');
     cout <<" 카드 csv를 입력하세요 : ";
     cin >> pin_num;
+    cin.ignore(1000,'\n');
     string userId = YebbixLogin::getInstance()->getID();
     // time_t : 시간을 초 단위로 저장하는 타입
     time_t now = time(nullptr);
@@ -84,7 +86,18 @@ void YebbixShop::buy_view()
     cout << "  > INPUT ANY KEY : ";
     string key;
     cin >> key;
-    if(cin) YebbixClientMain::getInstance()->show();
+    cin.ignore(1000,'\n');
+    if(cin) {
+        YebbixManager::getInstance()->setMenu(YebbixClientMain::getInstance());
+        return;
+    }
+}
+
+void YebbixShop::destroyInstance(){
+    if (instance != nullptr) {
+        delete instance; // 동적으로 할당된 인스턴스 해제
+        instance = nullptr; // 포인터를 nullptr로 만들어 재사용 방지 (안전)
+    }
 }
 
 vector<string> YebbixShop::getBuyInfo()
@@ -95,4 +108,5 @@ vector<string> YebbixShop::getBuyInfo()
 
 YebbixShop::~YebbixShop()
 {
+    delete buy_db;
 }

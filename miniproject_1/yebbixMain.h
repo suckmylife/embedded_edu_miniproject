@@ -5,6 +5,7 @@
 #include "yebbixLogin.h"
 #include "yebbixJoin.h"
 #include "yebbixUI.h"
+#include "yebbixmanager.h"
 using namespace std;
 
 class YebbixMain : public YebbixUI
@@ -16,6 +17,7 @@ public:
         return instance;
     }
     void show() override;
+    static void destroyInstance();
     ~YebbixMain();
 private:
     static YebbixMain* instance;

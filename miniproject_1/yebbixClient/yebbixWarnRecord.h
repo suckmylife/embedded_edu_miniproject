@@ -1,5 +1,5 @@
-#ifndef __YEBBIX_RECORD_H__
-#define __YEBBIX_RECORD_H__
+#ifndef __YEBBIX_WARN_RECORD_H__
+#define __YEBBIX_WARN_RECORD_H__
 
 #include <iostream>
 #include <vector>
@@ -13,23 +13,23 @@
 
 using namespace std;
 
-class YebbixRecord : public YebbixUI
+class YebbixWarnRecord : public YebbixUI
 {
 public:
-    static YebbixRecord* getInstance() {
+    static YebbixWarnRecord* getInstance() {
         if (!instance)
-            instance = new YebbixRecord();
+            instance = new YebbixWarnRecord();
         return instance;
     }
     
     void show() override;
     static void destroyInstance();
-    ~YebbixRecord();
+    ~YebbixWarnRecord();
 private:
-    static YebbixRecord* instance;
+    static YebbixWarnRecord* instance;
     vector<vector<string>> all_table;
     RecordDB *record_db;
-    YebbixRecord(){record_db = new RecordDB();}
+    YebbixWarnRecord(){record_db = new RecordDB();}
 };
 
 #endif //__YEBBIX_CLIENT_MAIN_H__

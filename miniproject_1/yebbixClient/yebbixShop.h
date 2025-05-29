@@ -9,10 +9,12 @@
 #include "../yebbixDatabase/buyDB.h"
 #include "../yebbixDatabase/productDB.h"
 #include "../yebbixDatabase/LicenseDB.h"
-#include "../yebbixLogin.h"
-#include "yebbixClientMain.h"
-#include "../yebbixUI.h"
 
+#include "../yebbixLogin.h"
+#include "../yebbixUI.h"
+#include "../yebbixmanager.h"
+
+#include "yebbixClientMain.h"
 using namespace std;
 
 class YebbixShop : public YebbixUI
@@ -28,7 +30,7 @@ public:
     void buy_view();
 
     vector<string> getBuyInfo();
-
+    static void destroyInstance();
     ~YebbixShop();
 private:
     static YebbixShop* instance;

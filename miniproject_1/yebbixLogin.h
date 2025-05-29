@@ -5,6 +5,7 @@
 
 #include "yebbixDatabase/clientDB.h"
 #include "yebbixClient\yebbixClientMain.h"
+#include "yebbixmanager.h"
 #include "yebbixUI.h"
 using namespace std;
 
@@ -29,6 +30,7 @@ public:
     string setID(string &i)  { return id=i; }
     string setPSW(string &p)  { return psw=p; }
 
+    static void destroyInstance();
     ~YebbixLogin();
 private:
     static YebbixLogin* instance;

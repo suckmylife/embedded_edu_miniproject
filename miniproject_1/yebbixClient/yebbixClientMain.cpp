@@ -1,4 +1,5 @@
 #include "yebbixClientMain.h"
+
 YebbixClientMain* YebbixClientMain::instance = nullptr;
 void YebbixClientMain::show()
 {
@@ -20,7 +21,7 @@ void YebbixClientMain::show()
 
 int YebbixClientMain::WhatRank()
 {
-    vector<string> info = YebbixShop::getInstance()->getBuyInfo();
+    vector<string> info = YebbixShop::getInstance()->getBuyInfo();//물어보자자
     if(!info.empty())
     {
         int rank;
@@ -61,18 +62,19 @@ void YebbixClientMain::viewer_view()
     
     while(isOk){
         cin >> ch;
+        cin.ignore(1000,'\n');
         switch(ch) {
             case 1: 
-                YebbixRecord::getInstance()->all_record_check();
+                YebbixManager::getInstance()->setMenu(YebbixRecord::getInstance());
                 isOk = false;
                 break;
             case 2:
-                YebbixShop::getInstance()->show();
+                YebbixManager::getInstance()->setMenu(YebbixShop::getInstance());
                 isOk = false;
                 break;
             case 3:
                 isOk = false;
-                exit(0);
+                YebbixManager::destroyInstance();
                 break;
             default:
                 cout<< "다시 입력하세요 : ";
@@ -81,6 +83,7 @@ void YebbixClientMain::viewer_view()
                 break;
         }
     }
+    return;
 }
 
 void YebbixClientMain::pro_view()
@@ -97,26 +100,27 @@ void YebbixClientMain::pro_view()
     
     while(isOk){
         cin >> ch;
+        cin.ignore(1000,'\n');
         switch(ch) {
             case 1: 
-                YebbixRecord::getInstance()->all_record_check();
+                YebbixManager::getInstance()->setMenu(YebbixRecord::getInstance());
                 isOk = false;
                 break;
             case 2:
-                YebbixRecord::getInstance()->warning_record_check();
+                YebbixManager::getInstance()->setMenu(YebbixWarnRecord::getInstance());
                 isOk = false;
                 break;
             case 3: 
-                YebbixRecord::getInstance()->critical_record_check();
+                YebbixManager::getInstance()->setMenu(YebbixCriticRecord::getInstance());
                 isOk = false;
                 break;
             case 4:
-                YebbixShop::getInstance()->show();
+                YebbixManager::getInstance()->setMenu(YebbixShop::getInstance());
                 isOk = false;
                 break;
             case 5:
                 isOk = false;
-                exit(0);
+                YebbixManager::destroyInstance();
                 break;
             default:
                 cout<< "다시 입력하세요 : ";
@@ -125,6 +129,7 @@ void YebbixClientMain::pro_view()
                 break;
         }
     }
+    return;
 }
 
 void YebbixClientMain::unrank_view()
@@ -139,14 +144,15 @@ void YebbixClientMain::unrank_view()
     
     while(isOk){
         cin >> ch;
+        cin.ignore(1000,'\n');
         switch(ch) {
             case 1: 
-                YebbixShop::getInstance()->show();
+                YebbixManager::getInstance()->setMenu(YebbixShop::getInstance());
                 isOk = false;
                 break;
             case 2:
                 isOk = false;
-                exit(0);
+                YebbixManager::destroyInstance();
                 break;
             default:
                 cout<< "다시 입력하세요 : ";
@@ -154,6 +160,14 @@ void YebbixClientMain::unrank_view()
                 cin.ignore(1000,'\n');
                 break;
         }
+    }
+    return;
+}
+
+void YebbixClientMain::destroyInstance(){
+    if (instance != nullptr) {
+        delete instance; // 동적으로 할당된 인스턴스 해제
+        instance = nullptr; // 포인터를 nullptr로 만들어 재사용 방지 (안전)
     }
 }
 
