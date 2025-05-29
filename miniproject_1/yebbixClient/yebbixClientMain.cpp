@@ -1,9 +1,14 @@
 #include "yebbixClientMain.h"
 
 YebbixClientMain* YebbixClientMain::instance = nullptr;
+
+YebbixClientMain::YebbixClientMain(){
+    buy_db = new BuyDB();
+}
+
 void YebbixClientMain::show()
 {
-    bool ranks = WhatRank();
+    int ranks = WhatRank();
     cout << "\033[2J\033[1;1H";
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                 YEBBIX : MAIN               " << endl;
@@ -21,7 +26,8 @@ void YebbixClientMain::show()
 
 int YebbixClientMain::WhatRank()
 {
-    vector<string> info = YebbixShop::getInstance()->getBuyInfo();//물어보자자
+    string userId = YebbixLogin::getInstance()->getID();
+    vector<string> info = buy_db->load(userId);//물어보자
     if(!info.empty())
     {
         int rank;
@@ -39,6 +45,10 @@ int YebbixClientMain::WhatRank()
         else
             userRank = UNRANK;
     }
+    else{
+        userRank = UNRANK;
+    }
+    
     return userRank;
 }
 

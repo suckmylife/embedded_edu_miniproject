@@ -11,6 +11,7 @@
 
 #include "../yebbixUI.h"
 #include "../yebbixmanager.h"
+#include "../yebbixLogin.h"
 
 using namespace std;
 
@@ -32,7 +33,8 @@ public:
     ~YebbixClientMain();
 private:
     static YebbixClientMain* instance;
-    YebbixClientMain(){};
+    BuyDB* buy_db;
+    YebbixClientMain();
 
     enum Rank{
         VIEWER,

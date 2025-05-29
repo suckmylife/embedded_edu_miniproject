@@ -36,8 +36,11 @@ vector<string> BuyDB::load(const string &clientID)
             
     }
     file.close();
-    
-    return table.back();
+
+    if(!table.empty())
+        return table.back();
+    else
+        return vector<string>();
 }
 void BuyDB::save(
             string clientId,string buy_date, string buy_license , string buy_start ,\
