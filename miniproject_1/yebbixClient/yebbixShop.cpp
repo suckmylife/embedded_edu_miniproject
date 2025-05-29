@@ -69,12 +69,14 @@ void YebbixShop::buy_view()
     // 원하는 포맷으로 출력
     char buffer[100];
     strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", local_tm);
-     if((product_db->load(userId)).empty())
+
+    //csv 갱신 
+    if((product_db->load(userId)).empty())
         product_db->save("new",buffer,"1.0.0");
     else
         product_db->update(userId,buffer);
-    
     buy_db->save(userId,buffer,order_num,"today","someday",card_num,pin_num);
+
     cout << "\033[2J\033[1;1H";
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                        구매되었습니다                         " << endl;
@@ -82,11 +84,10 @@ void YebbixShop::buy_view()
     cout << "  > INPUT ANY KEY : ";
     string key;
     cin >> key;
-    if(cin)
-        show();
+    if(cin) YebbixClientMain::getInstance()->show();
 }
 
-vector<vector<string>> YebbixShop::getBuyInfo()
+vector<string> YebbixShop::getBuyInfo()
 {
     string userId = YebbixLogin::getInstance()->getID();
     return buy_db->load(userId);

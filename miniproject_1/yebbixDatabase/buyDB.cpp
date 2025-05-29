@@ -3,24 +3,41 @@
 BuyDB::BuyDB()
 {
 }
-vector<vector<string>> BuyDB::load(const string &clientID)
+vector<string> BuyDB::load(const string &clientID)
 {
-    vector<string> row;
+    vector<string>         row;
     vector<vector<string>> table;
+    string                 line;
     ifstream               file;
-    string line;
+    bool isbreak         = false;
+
     file.open(file_path);
+
     while(getline(file,line,'\n')){
         stringstream ss(line);
         string cell;
         row.clear();
+        
         while(getline(ss,cell,',')){
             row.push_back(cell);
         }
-        table.push_back(row);
+        for (vector<string>::iterator it = row.begin(); it != row.end(); ++it) {
+            if(*it == clientID)
+            {
+                isbreak = true;
+                break;
+            }
+        }
+        if(isbreak)
+        {
+            table.push_back(row);
+            isbreak = false;
+        }
+            
     }
     file.close();
-    return table;
+    
+    return table.back();
 }
 void BuyDB::save(
             string clientId,string buy_date, string buy_license , string buy_start ,\

@@ -10,10 +10,12 @@
 #include "../yebbixDatabase/productDB.h"
 #include "../yebbixDatabase/LicenseDB.h"
 #include "../yebbixLogin.h"
+#include "yebbixClientMain.h"
+#include "../yebbixUI.h"
 
 using namespace std;
 
-class YebbixShop 
+class YebbixShop : public YebbixUI
 {
 public:
     static YebbixShop* getInstance() {
@@ -22,10 +24,10 @@ public:
         return instance;
     }
     
-    void show();
+    void show() override;
     void buy_view();
 
-    vector<vector<string>> getBuyInfo();
+    vector<string> getBuyInfo();
 
     ~YebbixShop();
 private:

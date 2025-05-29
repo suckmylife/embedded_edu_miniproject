@@ -3,12 +3,16 @@
 
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+
 #include "yebbixShop.h"
 #include "yebbixRecord.h"
 #include "yebbixShop.h"
+#include "../yebbixUI.h"
+
 using namespace std;
 
-class YebbixClientMain
+class YebbixClientMain : public YebbixUI
 {
 public:
     static YebbixClientMain* getInstance() {
@@ -17,7 +21,7 @@ public:
         return instance;
     }
     
-    void show();
+    void show() override;
     int WhatRank();
     //기능
     void license_shop();

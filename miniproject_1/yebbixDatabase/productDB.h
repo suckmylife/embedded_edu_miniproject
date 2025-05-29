@@ -7,6 +7,7 @@
 #include <fstream>
 #include <sstream>
 #include <istream>
+#include <algorithm>
 
 using namespace std;
 
@@ -18,6 +19,8 @@ public:
     //기능 (페이지네이션 제외)
     vector<string> load(const string &client_ID);
     void save(string clientID="",string pd_stat = "", string pd_time = "", string pd_ver = "" );
+    void del(const string &client_ID);
+    
     void getLastId(istream &file, char delimiter);
     void setLastId(string &id){lastId = id;};
     vector<string> update(const string &client_ID, const string &pd_time);

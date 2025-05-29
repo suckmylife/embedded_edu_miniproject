@@ -2,14 +2,15 @@
 YebbixClientMain* YebbixClientMain::instance = nullptr;
 void YebbixClientMain::show()
 {
+    bool ranks = WhatRank();
     cout << "\033[2J\033[1;1H";
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                 YEBBIX : MAIN               " << endl;
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    if(WhatRank() == VIEWER){
+    if( ranks == VIEWER){
         viewer_view();
     }
-    else if(WhatRank() == PRO){
+    else if(ranks == PRO){
         pro_view();
     }
     else{
@@ -19,16 +20,12 @@ void YebbixClientMain::show()
 
 int YebbixClientMain::WhatRank()
 {
-    //vector<string> info = YebbixLogin::getInstance()->getClientInfo();
-    vector<vector<string>> info = YebbixShop::getInstance()->getBuyInfo();
+    vector<string> info = YebbixShop::getInstance()->getBuyInfo();
     if(!info.empty())
     {
-        for (auto& row : info){
-            *next(row.begin(),2)
-        }
-        int rank = UNRANK;
+        int rank;
         try{
-            rank = stoi(info.back());
+            rank = stoi(info[3]);
         }
         catch(const invalid_argument& e){
             rank = UNRANK;
@@ -58,7 +55,7 @@ void YebbixClientMain::viewer_view()
     bool isOk = true;
     cout << "  1. 전체기록 확인                            " << endl;
     cout << "  2. 라이센스 구매                            " << endl;
-    cout << "  3. 회원 탈퇴                                " << endl;
+    cout << "  3. 종료                                     " << endl;
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << " 선택 : ";
     
@@ -70,8 +67,12 @@ void YebbixClientMain::viewer_view()
                 isOk = false;
                 break;
             case 2:
-                
+                YebbixShop::getInstance()->show();
                 isOk = false;
+                break;
+            case 3:
+                isOk = false;
+                exit(0);
                 break;
             default:
                 cout<< "다시 입력하세요 : ";
@@ -90,7 +91,7 @@ void YebbixClientMain::pro_view()
     cout << "  2. 경고이벤트 확인                          " << endl;
     cout << "  3. 위험이벤트 확인                          " << endl;
     cout << "  4. 라이센스 구매                            " << endl;
-    cout << "  5. 회원 탈퇴                                " << endl;
+    cout << "  5. 종료                                     " << endl;
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << " 선택 : ";
     
@@ -113,6 +114,10 @@ void YebbixClientMain::pro_view()
                 YebbixShop::getInstance()->show();
                 isOk = false;
                 break;
+            case 5:
+                isOk = false;
+                exit(0);
+                break;
             default:
                 cout<< "다시 입력하세요 : ";
                 cin.clear();
@@ -128,6 +133,7 @@ void YebbixClientMain::unrank_view()
     bool isOk = true;
     
     cout << "  1. 라이센스 구매                            " << endl;
+    cout << "  2. 종료                                     " << endl;
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << " 선택 : ";
     
@@ -135,8 +141,12 @@ void YebbixClientMain::unrank_view()
         cin >> ch;
         switch(ch) {
             case 1: 
-                
+                YebbixShop::getInstance()->show();
                 isOk = false;
+                break;
+            case 2:
+                isOk = false;
+                exit(0);
                 break;
             default:
                 cout<< "다시 입력하세요 : ";

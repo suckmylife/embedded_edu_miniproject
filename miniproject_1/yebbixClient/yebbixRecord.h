@@ -6,9 +6,10 @@
 #include <iomanip>
 #include "../yebbixDatabase/RecordDB.h"
 #include "../yebbixLogin.h"
+#include "../yebbixUI.h"
 using namespace std;
 
-class YebbixRecord
+class YebbixRecord : public YebbixUI
 {
 public:
     static YebbixRecord* getInstance() {
@@ -17,7 +18,7 @@ public:
         return instance;
     }
     
-    void show();
+    void show() override;
 
     //기능
     void all_record_check();

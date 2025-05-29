@@ -5,11 +5,11 @@
 
 #include "yebbixDatabase/clientDB.h"
 #include "yebbixMain.h"
-
+#include "yebbixUI.h"
 
 using namespace std;
 
-class YebbixJoin
+class YebbixJoin : public YebbixUI
 {
 public:
     static YebbixJoin* getInstance(){

@@ -5,9 +5,10 @@
 
 #include "yebbixDatabase/clientDB.h"
 #include "yebbixClient\yebbixClientMain.h"
+#include "yebbixUI.h"
 using namespace std;
 
-class YebbixLogin
+class YebbixLogin : public YebbixUI
 {
 public:
     static YebbixLogin* getInstance(){
@@ -16,7 +17,7 @@ public:
         return instance;
     }
     
-    void show();
+    void show() override;
     bool isClient;
 
     vector<string> getClientInfo() const {return info;}

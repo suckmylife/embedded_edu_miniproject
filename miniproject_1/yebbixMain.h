@@ -4,9 +4,10 @@
 #include <iostream>
 #include "yebbixLogin.h"
 #include "yebbixJoin.h"
+#include "yebbixUI.h"
 using namespace std;
 
-class YebbixMain
+class YebbixMain : public YebbixUI
 {
 public:
     static YebbixMain* getInstance() {
@@ -14,7 +15,7 @@ public:
             instance = new YebbixMain();
         return instance;
     }
-    void show();
+    void show() override;
     ~YebbixMain();
 private:
     static YebbixMain* instance;
