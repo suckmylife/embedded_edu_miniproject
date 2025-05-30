@@ -49,12 +49,15 @@ void YebbixRecord::show()
         }
         cout << endl;
     }
-    char keys;
-    cout << " >  ";
-    cin >> keys;
-    cin.ignore(1000,'\n');
-    if(keys == 'z')
-    {
+    string prompt = " 돌아가기 'z' 입력 >  ";
+    string keys;
+    keys = validateAnswer( prompt,[this](const string &input_){
+        if(input_ == "z"){
+            return true;
+        }
+        return false;
+    });
+    if(keys == "z"){
         YebbixManager::getInstance()->backMenu();
         return;
     }

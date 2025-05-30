@@ -6,8 +6,11 @@
 
 #include "yebbixDatabase/clientDB.h"
 #include "yebbixClient\yebbixClientMain.h"
+
+#include "yebbixMain.h"
 #include "yebbixmanager.h"
 #include "yebbixUI.h"
+
 using namespace std;
 
 class YebbixLogin : public YebbixUI

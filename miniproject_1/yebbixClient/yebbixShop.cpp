@@ -10,6 +10,7 @@ void YebbixShop::show()
     cout << "\033[2J\033[1;1H";
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                        YEBBIX : LICENSE                      " << endl;
+    cout << "  [이전화면 : z ]                                              " <<endl;
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << endl << " 주문번호 | 라이센스명 | 내용 " << endl;
     for (auto& r : license_table) {
@@ -34,13 +35,21 @@ void YebbixShop::show()
         }
         cout << endl;
     }
-    cout<< "원하시는 라이센스의 주문번호를 입력 하세요"<<endl;
-    cout << " > ";
-    
-    cin >> order_num;
-    cin.ignore(1000,'\n');
-    if(cin){
-       buy_view();
+    string prompt = "주문번호 입력 > ";
+    order_num = validateAnswer( prompt,[this](const string &input_){
+        if(input_ == "0" || input_ == "1") {
+            buy_view();
+            return true;
+        }
+        else if(input_ == "z"){
+            return true;
+        }
+        return false;
+    });
+    if(order_num == "z")
+    {
+        YebbixManager::getInstance()->backMenu();
+        return;
     }
     
 }
@@ -51,13 +60,40 @@ void YebbixShop::buy_view()
     cout << "\033[2J\033[1;1H";
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                        YEBBIX : BUY                          " << endl;
+    cout << "  [이전화면 : z ]                                              " <<endl;
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    cout <<" 카드번호를 입력하세요 : ";
-    cin >> card_num;
-    cin.ignore(1000,'\n');
-    cout <<" 카드 csv를 입력하세요 : ";
-    cin >> pin_num;
-    cin.ignore(1000,'\n');
+    string nums = " 카드번호를 입력하세요 > ";
+    card_num = validateAnswer( nums,[this](const string &input_){
+         if(input_.empty()){
+            cout << endl;
+            cout << "Hey Input your card number"<<endl;
+            return false;
+        }
+        return true;
+    });
+    if(card_num == "z")
+    {
+        show();
+        return;
+    }
+        
+    
+
+    string pins = " 카드 csv를 입력하세요 > ";
+    pin_num = validateAnswer( pins,[this](const string &input_){
+         if(input_.empty()){
+            cout << endl;
+            cout << "Hey Input your card pin number"<<endl;
+            return false;
+        }
+        return true;
+    });
+    if(pin_num == "z")
+    {
+        show();
+        return;
+    }
+        
     string userId = YebbixLogin::getInstance()->getID();
     // time_t : 시간을 초 단위로 저장하는 타입
     time_t now = time(nullptr);
@@ -85,7 +121,8 @@ void YebbixShop::buy_view()
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                     >  PRESS ENTER KEY <                     " << endl;
     string key;
-    cin >> key;
+    
+    getline(cin,key);
     if(cin) {
         YebbixManager::getInstance()->setMenu(YebbixClientMain::getInstance());
         return;

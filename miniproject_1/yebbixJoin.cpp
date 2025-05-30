@@ -7,9 +7,12 @@ YebbixJoin::YebbixJoin()
     record_db = new RecordDB();
 }
 
-bool YebbixJoin::isHangul(wchar_t ch)
+bool YebbixJoin::isHangul(string text)
 {
-    return (ch >= 0xAC00 && ch <= 0xD7A3);
+    for (unsigned char ch : text) {
+        if (ch & 0x80) return true;  // 최상위 비트가 1이면 다바이트 문자(한글 등)
+    }
+    return false;
 }
 
 void YebbixJoin::show()
@@ -20,56 +23,82 @@ void YebbixJoin::show()
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                 YEBBIX : JOIN               " << endl;
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
-
-    //while(isOk)
-    //cout << " 아이디 생성 : ";
     string id_s = " 아이디 생성 : ";
     id_ = validateAnswer( id_s,[this](const string &input_){
-            bool isOk = false;
-            // UTF-8 -> UTF-32로 변환 한글 검사
-            wstring_convert<codecvt_utf8<wchar_t>> conv;
-            wstring winput = conv.from_bytes(input_);
-
-            for (wchar_t ch : winput) {
-            if(input_.empty()){
-                cout << "Hey Input your ID"<<endl;
-                isOk = false;
-                return isOk;
-            }
-            else{
-                if(input_.length()>10)
-                {
-                    isOk = false;
-                    cout << "HEY! INPUT YOUR ID! WHAT's WRONG WITH YOU"<<endl;
-                    return isOk;
-                }
-                else if (isHangul(ch)) 
-                {
-                    cout << "Don't use hangul ok? Retry";
-                    return isOk;
-                }
-                else
-                    isOk = true;
-                }
-            }
-            return isOk;
-        });
-    cin.ignore(1000,'\n');
-    cout << " 비밀번호 생성 : ";
-    cin >> password_;
-    cin.ignore(1000,'\n');
-    cout << " 회사명 입력 : ";
-    cin >> company_;
-    cin.ignore(1000,'\n');
-    cout << " 이름 입력 : ";
-    cin >> name_;
-    cin.ignore(1000,'\n');
-    cout << " 소속 입력 : ";
-    cin >> team_;
-    cin.ignore(1000,'\n');
-    cout << " 직급 입력 : ";
-    cin >> position_;
-    cin.ignore(1000,'\n');
+        if(input_.empty()){
+            cout << endl;
+            cout << "Hey Input your ID"<<endl;
+            return false;
+        }
+        else if(input_.length()>10 || input_.length()<4){
+            cout << endl;
+            cout << "HEY 4 more 10 less"<<endl;
+            return false;
+        }
+        else if (isHangul(input_)) 
+        {
+            cout << endl;
+            cout << "Don't use hangul ok? Retry" << endl;
+            return false;
+        }
+        else if(!((this->client_db->confirm(input_)).empty())){
+            cout << endl;
+            cout << "You already YEBBIX member. Please Login." << endl;
+            return false;
+        }
+            
+        return true;
+    });
+    string pass_ = " 비밀번호 생성 : ";
+    password_ = validateAnswer( pass_,[this](const string &input_){
+        if(input_.empty()){
+            cout << endl;
+            cout << "Hey Input your password"<<endl;
+            return false;
+        }
+        else if(input_.length()>10 || input_.length()<5){
+            cout << endl;
+            cout << "HEY 5 more 10 less"<<endl;
+            return false;
+        }
+        return true;
+    });
+    string com_ =" 회사명 입력 : ";
+    company_ = validateAnswer( com_,[this](const string &input_){
+        if(input_.empty()){
+            cout << endl;
+            cout << "We need your company name!"<<endl;
+            return false;
+        }
+        return true;
+    });
+    string name_s =" 이름 입력 : ";
+    name_ = validateAnswer( name_s,[this](const string &input_){
+        if(input_.empty()){
+            cout << endl;
+            cout << "We need your name!"<<endl;
+            return false;
+        }
+        return true;
+    });
+    string team_s =" 소속 입력 : ";
+    team_ = validateAnswer( team_s,[this](const string &input_){
+        if(input_.empty()){
+            cout << endl;
+            cout << "We need your team name!"<<endl;
+            return false;
+        }
+        return true;
+    });
+    string pos =" 직급 입력 : ";
+    position_ = validateAnswer( pos,[this](const string &input_){
+        if(input_.empty()){
+            cout << endl;
+            cout << "What is your position? you don't know? INPUT NOBODY"<<endl;
+            return false;
+        }
+        return true;
+    });
     setID(id_);
     setPSW(password_);
     setCompany(company_);
@@ -89,15 +118,19 @@ void YebbixJoin::join()
 
 void YebbixJoin::Okmessage()
 {
-    char anw;
     cout << "\033[2J\033[1;1H";
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "          YEBBIX : 회원가입 되었습니다        " << endl;
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    cout << " 확인하셨으면 1 을 눌러주세요 : ";
-    cin >> anw;
-    cin.ignore(1000,'\n');
-    if(anw == '1') {
+    string prompt = " 확인하셨으면 1 을 눌러주세요 >  ";
+    string anw;
+    anw = validateAnswer( prompt,[this](const string &input_){
+        if(input_ == "1") {
+            return true;
+        }
+        return false;
+    });
+    if(anw == "1") {
         YebbixManager::getInstance()->setMenu(YebbixMain::getInstance());
         return;
     }

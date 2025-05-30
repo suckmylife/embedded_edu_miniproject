@@ -3,8 +3,6 @@
 
 #include <iostream>
 #include <string>
-#include <locale>
-#include <codecvt>
 
 #include "yebbixDatabase/clientDB.h"
 #include "yebbixDatabase/RecordDB.h"
@@ -46,7 +44,7 @@ private:
     ClientDB *client_db;
     RecordDB * record_db;
 
-    bool isHangul(wchar_t ch);
+    bool isHangul(string text);
 };
 
 #endif //__YEBBIX_JOIN_H__
