@@ -33,21 +33,26 @@ void YebbixJoin::show()
             for (wchar_t ch : winput) {
             if(input_.empty()){
                 cout << "Hey Input your ID"<<endl;
-                return false;
+                isOk = false;
+                return isOk;
             }
             else{
                 if(input_.length()>10)
                 {
                     isOk = false;
                     cout << "HEY! INPUT YOUR ID! WHAT's WRONG WITH YOU"<<endl;
+                    return isOk;
                 }
                 else if (isHangul(ch)) 
+                {
                     cout << "Don't use hangul ok? Retry";
+                    return isOk;
+                }
                 else
                     isOk = true;
                 }
-                return isOk;
             }
+            return isOk;
         });
     cin.ignore(1000,'\n');
     cout << " 비밀번호 생성 : ";
