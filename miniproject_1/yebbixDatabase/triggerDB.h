@@ -15,8 +15,8 @@ class TriggerDB
 public:
     TriggerDB();
     vector<vector<string>> load(const string &client_ID) ;
-    void save(string trigger_name = "", string trigger_cond = "", string trigger_step = "");
-    void save(string trigger_ID = "",string trigger_name = "", string trigger_cond = "", string trigger_step = "");
+    void add(string client_ID,string trigger_name = "", string trigger_cond = "", string trigger_step = "");
+    void save(string trigger_ID = "",string client_ID="",string trigger_name = "", string trigger_cond = "", string trigger_step = "");
     vector<string> confirm(const string &client_ID);
     void update(const string &client_ID, const vector<string> &r);
     void del(const string &client_ID);

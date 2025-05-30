@@ -59,6 +59,10 @@ private:
         WARNING,
         CRITICAL
     };
+    const int ID_setw = 4;
+    const int name_setw = 11;
+    const int cond_setw = 23;
+    const int step_setw = 11;
     YebbixTrigger();
 };
 

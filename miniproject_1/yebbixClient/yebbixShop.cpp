@@ -50,8 +50,8 @@ void YebbixShop::show()
     }
     else if(order_n == "0" || order_n == "1" )
     {
-        buy_view();
         setOrderNum(order_n);
+        buy_view();
     }
     
 }
@@ -71,6 +71,12 @@ void YebbixShop::buy_view()
             cout << "Hey Input your card number"<<endl;
             return false;
         }
+        else if(input_.length() >10)
+        {
+            cout << endl;
+            cout << "Card Number 10자리 넘지 않음?"<<endl;
+            return false;
+        }
         return true;
     });
     if(card_num == "z")
@@ -81,7 +87,7 @@ void YebbixShop::buy_view()
         
     
 
-    string pins = " 카드 csv를 입력하세요 > ";
+    string pins = " 카드 cvc를 입력하세요 > ";
     pin_num = validateAnswer( pins,[this](const string &input_){
          if(input_.empty()){
             cout << endl;
@@ -115,7 +121,7 @@ void YebbixShop::buy_view()
         product_db->save("new",buffer,"1.0.0");
     else
         product_db->update(userId,buffer);
-    buy_db->save(userId,buffer,order_num,"today","someday",card_num,pin_num);
+    buy_db->save(userId,buffer,getOrderNum(),"today","someday",card_num,pin_num);
 
     cout << "\033[2J\033[1;1H";
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
