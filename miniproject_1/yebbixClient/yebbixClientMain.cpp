@@ -103,7 +103,8 @@ void YebbixClientMain::pro_view()
     cout << "  2. 경고이벤트 확인                          " << endl;
     cout << "  3. 위험이벤트 확인                          " << endl;
     cout << "  4. 라이센스 구매                            " << endl;
-    cout << "  5. 종료                                     " << endl;
+    cout << "  5. 트리거 설정                              " << endl;
+    cout << "  6. 종료                                     " << endl;
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << " 선택 : ";
     
@@ -128,6 +129,10 @@ void YebbixClientMain::pro_view()
                 isOk = false;
                 break;
             case 5:
+                YebbixManager::getInstance()->setMenu(YebbixTrigger::getInstance());
+                isOk = false;
+                break;
+            case 6:
                 isOk = false;
                 YebbixManager::destroyInstance();
                 break;

@@ -66,5 +66,6 @@ void YebbixManager::destroyInstance()
    YebbixWarnRecord::destroyInstance();
    YebbixCriticRecord::destroyInstance();
    YebbixShop::destroyInstance();
+   YebbixTrigger::destroyInstance();
    exit(0);
 }

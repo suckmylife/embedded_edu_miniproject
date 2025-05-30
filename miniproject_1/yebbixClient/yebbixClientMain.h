@@ -8,6 +8,7 @@
 #include "yebbixRecord.h"
 #include "yebbixWarnRecord.h"
 #include "yebbixCriticRecord.h"
+#include "yebbixTrigger.h"
 
 #include "../yebbixUI.h"
 #include "../yebbixmanager.h"

@@ -35,8 +35,8 @@ void YebbixLogin::show()
             YebbixManager::getInstance()->setMenu(YebbixClientMain::getInstance());
             return;
         }
-            
-        
+        else
+            YebbixManager::getInstance()->destroyInstance();
     }
     else
     {
@@ -51,6 +51,8 @@ void YebbixLogin::show()
         getline(cin, key);
         if(cin)
             YebbixManager::getInstance()->setMenu(YebbixMain::getInstance());
+        else
+            YebbixManager::getInstance()->destroyInstance();
     }
        
 }

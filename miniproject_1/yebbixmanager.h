@@ -16,6 +16,7 @@
 #include "yebbixClient/yebbixRecord.h"
 #include "yebbixClient/yebbixWarnRecord.h"
 #include "yebbixClient/yebbixShop.h"
+#include "yebbixClient/yebbixTrigger.h"
 
 using namespace std;
 

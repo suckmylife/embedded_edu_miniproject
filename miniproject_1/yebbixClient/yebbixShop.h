@@ -31,6 +31,9 @@ public:
 
     vector<string> getBuyInfo();
     static void destroyInstance();
+
+    string getOrderNum(){return order_num;};
+    void setOrderNum(const string &o){order_num = o;};
     ~YebbixShop();
 private:
     static YebbixShop* instance;

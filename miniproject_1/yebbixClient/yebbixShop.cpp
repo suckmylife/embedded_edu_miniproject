@@ -36,20 +36,22 @@ void YebbixShop::show()
         cout << endl;
     }
     string prompt = "주문번호 입력 > ";
-    order_num = validateAnswer( prompt,[this](const string &input_){
-        if(input_ == "0" || input_ == "1") {
-            buy_view();
-            return true;
-        }
-        else if(input_ == "z"){
+    string order_n;
+    order_n = validateAnswer( prompt,[this](const string &input_){
+        if(input_ == "0" || input_ == "1" || input_ == "z") {
             return true;
         }
         return false;
     });
-    if(order_num == "z")
+    if(order_n == "z")
     {
         YebbixManager::getInstance()->backMenu();
         return;
+    }
+    else if(order_n == "0" || order_n == "1" )
+    {
+        buy_view();
+        setOrderNum(order_n);
     }
     
 }
@@ -122,11 +124,14 @@ void YebbixShop::buy_view()
     cout << "                     >  PRESS ENTER KEY <                     " << endl;
     string key;
     
-    getline(cin,key);
+    getline(cin, key);
     if(cin) {
         YebbixManager::getInstance()->setMenu(YebbixClientMain::getInstance());
         return;
     }
+    else
+        YebbixManager::getInstance()->destroyInstance();
+    
 }
 
 void YebbixShop::destroyInstance(){
