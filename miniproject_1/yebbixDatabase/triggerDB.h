@@ -1,5 +1,5 @@
-#ifndef __CLIENT_DB_H__
-#define __CLIENT_DB_H__
+#ifndef __TRIGGER_DB_H__
+#define __TRIGGER_DB_H__
 
 #include <iostream>
 #include <vector>
@@ -10,10 +10,10 @@
 
 using namespace std;
 
-class ClientDB 
+class TriggerDB 
 {
 public:
-    ClientDB();
+    TriggerDB();
     vector<vector<string>> load() ;
     void save(
              string client_ID = "", string client_psw = "", \
@@ -21,15 +21,16 @@ public:
              string client_team = "", string client_position = ""
             );
     vector<string> confirm(const string &client_ID);
+    vector<string> update(const string &client_ID, const string &pd_time);
     void del(const string &client_ID);
     void getLastId(istream &file, char delimiter);
     void setLastId(string &id){lastId = id;};
-    ~ClientDB();
+    ~TriggerDB();
 private:
     string lastId;
-    string file_path = "yebbixDatabase/clientDB.csv";
-    
+    string file_path = "yebbixDatabase/triggerDB.csv";
+    vector<string> row;
 
 };
 
-#endif //__CLIENT_DB_H__
+#endif //__TRIGGER_DB_H__
