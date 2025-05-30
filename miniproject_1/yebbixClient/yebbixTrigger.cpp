@@ -12,18 +12,22 @@ void YebbixTrigger::show()
     all_table = trigger_db->load(YebbixLogin::getInstance()->getID());
     show_table(all_table);
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    cout << "             수정, 삭제, 추가를 할 ID를 골라 주세요             " << endl;
+    cout << "             수정, 삭제를 할 ID를 골라 주세요             " << endl;
+    cout << "            추가 하시려면 add 를 입력해 주세요            " << endl;
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    string prompt = " ID 입력 >  ";
+    string prompt = " 입력 >  ";
     string keys;
     keys = validateAnswer( prompt,[this](const string &input_){
-        if(input_ == "z") return true;
+        if(input_ == "z" || input_ == "add") return true;
         else if(!(trigger_db->confirm(input_).empty())) return true;
         return false;
     });
     if(keys == "z"){
         YebbixManager::getInstance()->backMenu();
         return;
+    }
+    else if(keys == "add"){
+        add();
     }
     else{
         setCrudRow(trigger_db->confirm(keys));
@@ -43,29 +47,29 @@ void YebbixTrigger::show_table(const vector<string> &table)
     cout << "  [이전화면 : z ]                                              " <<endl;
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << endl << " ID  |  트리거명  |       조건 내용        |     단계  "  << endl;
-    
-    for (auto it = table.begin(); it != table.end();++it){
+    if(!table.empty()){
+        for (auto it = table.begin(); it != table.end();++it){
         switch (col_num)
         {
             case 0:
-                cout << setw(6)<< *it << " |";
+                cout << setw(ID_setw)<< *it << " |";
                 break;
             case 2:
-                cout << setw(8)<< *it << " |";
+                cout << setw(name_setw)<< *it << " |";
                 break;
             case 3:
-                cout << setw(20)<< *it << " |";
+                cout << setw(cond_setw)<< *it << " |";
                 break;
             case 4:
-                cout << setw(11)<< *it;
+                cout << setw(step_setw)<< *it;
                 break;
             default:
                 break;
+            }
+            col_num++;
         }
-        col_num++;
+        cout << endl;
     }
-    cout << endl;
-    
 }
 
 void YebbixTrigger::crud_view()
@@ -77,9 +81,9 @@ void YebbixTrigger::crud_view()
     cout << endl;
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                    Get your own Trigger                      " << endl;
-    cout << "  [수정 : m ]    [삭제 : d ]    [추가 : a ]                    " <<endl;
+    cout << "  [수정 : m ]    [삭제 : d ]                       " <<endl;
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    string prompt = " ID 입력 >  ";
+    string prompt = " 입력 >  ";
     string keys;
     keys = validateAnswer( prompt,[this](const string &input_){
         if(input_ == "z" || input_ == "m" || input_ == "a" || input_ == "d"){
@@ -93,10 +97,6 @@ void YebbixTrigger::crud_view()
     }
     else if(keys == "m"){
         update();
-        return;
-    }
-    else if(keys == "a"){
-        add();
         return;
     }
     else if(keys == "d"){
@@ -114,30 +114,32 @@ void YebbixTrigger::show_table(const vector<vector<string>> &table)
     cout << "  [이전화면 : z ]                                              " <<endl;
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << endl << " ID  |  트리거명  |       조건 내용        |     단계  "  << endl;
-    for (auto& r : table) {
-        col_num = 0;
-        for (auto it = r.cbegin(); it != r.cend(); ++it){
-            switch (col_num)
-            {
-            case 0:
-                cout << setw(3)<< *it << " |";
-                break;
-            case 2:
-                cout << setw(11)<< *it << " |";
-                break;
-            case 3:
-                cout << setw(22)<< *it << " |";
-                break;
-            case 4:
-                cout << setw(11)<< *it;
-                break;
-            default:
-                break;
+    if(!table.empty()){
+        for (auto& r : table) {
+            col_num = 0;
+            for (auto it = r.cbegin(); it != r.cend(); ++it){
+                switch (col_num)
+                {
+                case 0:
+                    cout << setw(ID_setw)<< *it << " |";//Rb
+                    break;
+                case 2:
+                    cout << setw(name_setw)<< *it << " |";
+                    break;
+                case 3:
+                    cout << setw(cond_setw)<< *it << " |";
+                    break;
+                case 4:
+                    cout << setw(step_setw)<< *it;
+                    break;
+                default:
+                    break;
+                }
+                
+                col_num++;
             }
-            
-            col_num++;
+            cout << endl;
         }
-        cout << endl;
     }
 }
 
@@ -200,13 +202,16 @@ void YebbixTrigger::update()
     switch (rank)
     {
     case 0:
-        rank_s = "NORMAL";
+        rank_s = "-";
+        setTriggerStep(rank_s);
         break;
     case 1:
         rank_s = "WARNING";
+        setTriggerStep(rank_s);
         break;
     case 2:
         rank_s = "CRITICAL";
+        setTriggerStep(rank_s);
         break;
     default:
         break;
@@ -214,6 +219,7 @@ void YebbixTrigger::update()
     vector<string> update_data;
     update_data.push_back(getTriggerID());
     update_data.push_back(YebbixLogin::getInstance()->getID());
+    update_data.push_back(getTriggerName());
     update_data.push_back(getTriggerCond());
     update_data.push_back(getTriggerStep());
     setCrudRow(update_data);
@@ -232,6 +238,7 @@ void YebbixTrigger::del()
 
 void YebbixTrigger::add()
 {
+    cout << "\033[2J\033[1;1H";
     cout << " 추가 화면 입니다" <<endl;
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "[ 단계 설정 ]"<<endl;
@@ -286,18 +293,21 @@ void YebbixTrigger::add()
     switch (rank)
     {
     case 0:
-        rank_s = "NORMAL";
+        rank_s = "-";
+        setTriggerStep(rank_s);
         break;
     case 1:
         rank_s = "WARNING";
+        setTriggerStep(rank_s);
         break;
     case 2:
         rank_s = "CRITICAL";
+        setTriggerStep(rank_s);
         break;
     default:
         break;
     }
-    trigger_db->save(tr_name,tr_cond,tr_step,"");
+    trigger_db->add(YebbixLogin::getInstance()->getID(), tr_name,tr_cond,getTriggerStep());
     show();
     return;
 }

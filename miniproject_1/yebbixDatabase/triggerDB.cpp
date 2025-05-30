@@ -8,7 +8,7 @@ TriggerDB::TriggerDB()
 void TriggerDB::update(const string &client_ID, const vector<string> &r)
 {
     del(client_ID);
-    save(r[0],r[1],r[2],r[3]);
+    save(r[0],r[1],r[2],r[3],r[4]);
 }
 
 vector<vector<string>> TriggerDB::load(const string &client_ID)
@@ -52,7 +52,7 @@ void TriggerDB::getLastId(istream &file, char delimiter)
         setLastId(line);
     }
 }
-void TriggerDB::save(string trigger_ID,string trigger_name, string trigger_cond, string trigger_step)
+void TriggerDB::save(string trigger_ID,string client_ID,string trigger_name, string trigger_cond, string trigger_step)
 {
     //last id 갖고 오기기
     ifstream file_;
@@ -63,12 +63,12 @@ void TriggerDB::save(string trigger_ID,string trigger_name, string trigger_cond,
     ofstream file(file_path,ios::app);
     if(!file.fail()) {
         file<<endl;
-        file << trigger_ID << "," << trigger_name << "," << trigger_cond << "," <<trigger_step;
+        file << trigger_ID << "," << client_ID<< "," << trigger_name << "," << trigger_cond << "," <<trigger_step;
     }
     file.close();
 }
 
-void TriggerDB::save(string trigger_name, string trigger_cond, string trigger_step)
+void TriggerDB::add(string client_ID,string trigger_name, string trigger_cond, string trigger_step)
 {
     //last id 갖고 오기기
     ifstream file_;
@@ -83,7 +83,7 @@ void TriggerDB::save(string trigger_name, string trigger_cond, string trigger_st
         string firstValue = lastId.substr(0, pos);  // 0부터 "," 전까지 잘라옴
         id = stoi(firstValue)+1;
         file<<endl;
-        file << to_string(id) << "," << trigger_name << "," << trigger_cond << "," <<trigger_step;
+        file << to_string(id) << ","  << client_ID<< ","<< trigger_name << "," << trigger_cond << "," <<trigger_step;
     }
     file.close();
 }

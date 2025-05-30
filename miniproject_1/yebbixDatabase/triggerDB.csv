@@ -1,5 +1,4 @@
 1,kate_Id,Trigger1,Condition1,-
-2,kate_Id,Trigger2,Condition2,CRITICAL
 3,kate_Id,Trigger3,Condition3,WARNING
 4,sally_id,Trigger1,Condition1,-
 5,sally_id,Trigger2,Condition2,CRITICAL
@@ -19,3 +18,4 @@
 19,test2,Trigger1,Condition1,-
 20,test2,Trigger2,Condition2,CRITICAL
 21,test2,Trigger3,Condition3,WARNING
+22,kate_Id,new Trigger,hello,CRITICAL
