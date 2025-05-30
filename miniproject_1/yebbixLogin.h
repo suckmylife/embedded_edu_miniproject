@@ -2,6 +2,7 @@
 #define __YEBBIX_LOGIN_H__
 
 #include <iostream>
+#include <string>
 
 #include "yebbixDatabase/clientDB.h"
 #include "yebbixClient\yebbixClientMain.h"
@@ -34,7 +35,7 @@ public:
     ~YebbixLogin();
 private:
     static YebbixLogin* instance;
-    YebbixLogin(){client_db = new ClientDB();};
+    YebbixLogin();
     vector<string> info;
     bool confirm();
     string id,psw;

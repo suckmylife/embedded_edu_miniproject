@@ -1,9 +1,3 @@
-#include <vector>
-#include <algorithm>
-#include <fstream>
-#include <sstream>
-#include <iomanip>
-
 #include "yebbixmanager.h"
 YebbixManager* YebbixManager::instance = nullptr;
 

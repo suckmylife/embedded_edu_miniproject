@@ -1,5 +1,12 @@
 #include "yebbixRecord.h"
+
 YebbixRecord* YebbixRecord::instance = nullptr;
+
+YebbixRecord::YebbixRecord()
+{
+    record_db = new RecordDB();
+}
+
 void YebbixRecord::show()
 {
     int col_num = 0;

@@ -1,5 +1,10 @@
 #include "yebbixLogin.h"
 YebbixLogin* YebbixLogin::instance = nullptr;
+
+YebbixLogin::YebbixLogin()
+{
+    client_db = new ClientDB();
+}
 void YebbixLogin::show()
 {
     string id_, psw_;
@@ -22,10 +27,9 @@ void YebbixLogin::show()
         cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
         cout << "                 WELCOME YEBBIX              " << endl;
         cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl << endl;
-        cout << "  > INPUT ANY KEY : ";
+        cout << "              >  PRESS ENTER KEY <           " << endl;
         string key;
         cin >> key;
-        cin.ignore(1000,'\n');
         if(cin){
             YebbixManager::getInstance()->setMenu(YebbixClientMain::getInstance());
             return;
@@ -35,13 +39,15 @@ void YebbixLogin::show()
     }
     else
     {
+        cout << "\033[2J\033[1;1H";
         cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
+        cout << "            YOU'RE NOT YEBBIX MEMBER         " << endl;
         cout << "                 회원이 아닙니다              " << endl;
+        cout << "             회원가입을 진행해 주세요          " << endl;
         cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl <<endl;
-        cout << "  > INPUT ANY KEY : ";
+        cout << "              >  PRESS ENTER KEY <           " << endl;
         string key;
-        cin >> key;
-        cin.ignore(1000,'\n');
+        getline(cin, key);
         if(cin)
             show();
     }

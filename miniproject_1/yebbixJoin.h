@@ -2,9 +2,13 @@
 #define __YEBBIX_JOIN_H__
 
 #include <iostream>
+#include <string>
+#include <locale>
+#include <codecvt>
 
 #include "yebbixDatabase/clientDB.h"
 #include "yebbixDatabase/RecordDB.h"
+
 #include "yebbixMain.h"
 #include "yebbixUI.h"
 #include "yebbixmanager.h"
@@ -41,6 +45,8 @@ private:
     string id,password,company,name,team,position;
     ClientDB *client_db;
     RecordDB * record_db;
+
+    bool isHangul(wchar_t ch);
 };
 
 #endif //__YEBBIX_JOIN_H__

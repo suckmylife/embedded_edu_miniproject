@@ -1,5 +1,4 @@
 #include "yebbixClientMain.h"
-
 YebbixClientMain* YebbixClientMain::instance = nullptr;
 
 YebbixClientMain::YebbixClientMain(){

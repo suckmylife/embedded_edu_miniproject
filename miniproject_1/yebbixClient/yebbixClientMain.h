@@ -12,6 +12,7 @@
 #include "../yebbixUI.h"
 #include "../yebbixmanager.h"
 #include "../yebbixLogin.h"
+#include "../yebbixDatabase/buyDB.h"
 
 using namespace std;
 

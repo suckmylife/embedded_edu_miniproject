@@ -63,6 +63,7 @@
         "xmemory": "cpp",
         "xtr1common": "cpp",
         "deque": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "random": "cpp"
     }
 }

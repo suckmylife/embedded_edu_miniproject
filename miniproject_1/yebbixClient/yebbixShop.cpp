@@ -83,10 +83,9 @@ void YebbixShop::buy_view()
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                        구매되었습니다                         " << endl;
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    cout << "  > INPUT ANY KEY : ";
+    cout << "                     >  PRESS ENTER KEY <                     " << endl;
     string key;
     cin >> key;
-    cin.ignore(1000,'\n');
     if(cin) {
         YebbixManager::getInstance()->setMenu(YebbixClientMain::getInstance());
         return;

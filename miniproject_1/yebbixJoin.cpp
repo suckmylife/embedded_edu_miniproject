@@ -6,16 +6,49 @@ YebbixJoin::YebbixJoin()
     client_db = new ClientDB();
     record_db = new RecordDB();
 }
+
+bool YebbixJoin::isHangul(wchar_t ch)
+{
+    return (ch >= 0xAC00 && ch <= 0xD7A3);
+}
+
 void YebbixJoin::show()
 {
     string id_,password_,company_,name_,team_,position_;
+    //bool isOk = true;
     cout << "\033[2J\033[1;1H";
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                 YEBBIX : JOIN               " << endl;
     cout << "+++++++++++++++++++++++++++++++++++++++++++++" << endl;
 
-    cout << " 아이디 생성 : ";
-    cin >> id_;
+    //while(isOk)
+    //cout << " 아이디 생성 : ";
+    string id_s = " 아이디 생성 : ";
+    id_ = validateAnswer( id_s,[this](const string &input_){
+            bool isOk = false;
+            // UTF-8 -> UTF-32로 변환 한글 검사
+            wstring_convert<codecvt_utf8<wchar_t>> conv;
+            wstring winput = conv.from_bytes(input_);
+
+            for (wchar_t ch : winput) {
+            if(input_.empty()){
+                cout << "Hey Input your ID"<<endl;
+                return false;
+            }
+            else{
+                if(input_.length()>10)
+                {
+                    isOk = false;
+                    cout << "HEY! INPUT YOUR ID! WHAT's WRONG WITH YOU"<<endl;
+                }
+                else if (isHangul(ch)) 
+                    cout << "Don't use hangul ok? Retry";
+                else
+                    isOk = true;
+                }
+                return isOk;
+            }
+        });
     cin.ignore(1000,'\n');
     cout << " 비밀번호 생성 : ";
     cin >> password_;

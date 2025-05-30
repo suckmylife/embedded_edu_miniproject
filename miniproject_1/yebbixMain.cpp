@@ -28,7 +28,6 @@ void YebbixMain::show()
             default:
                 cout<< "다시 입력하세요 : ";
                 cin.clear();
-                cin.ignore(1000,'\n');
                 break;
         }
     }
