@@ -18,4 +18,5 @@
 19,test2,Trigger1,Condition1,-
 20,test2,Trigger2,Condition2,CRITICAL
 21,test2,Trigger3,Condition3,WARNING
-22,kate_Id,new Trigger,hello,CRITICAL
+22,kate_Id,new Trigger,티원졌어,CRITICAL
+23,heun,new trigger,ho,CRITICAL
