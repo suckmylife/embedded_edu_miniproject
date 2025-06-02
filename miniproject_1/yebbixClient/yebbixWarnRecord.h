@@ -29,7 +29,7 @@ private:
     static YebbixWarnRecord* instance;
     vector<vector<string>> all_table;
     RecordDB *record_db;
-    YebbixWarnRecord(){record_db = new RecordDB();}
+    YebbixWarnRecord();
 };
 
 #endif //__YEBBIX_CLIENT_MAIN_H__

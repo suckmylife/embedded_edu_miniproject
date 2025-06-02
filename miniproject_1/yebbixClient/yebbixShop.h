@@ -43,11 +43,7 @@ private:
     vector<vector<string>> license_table;
     string order_num;
 
-    YebbixShop(){
-        buy_db = new BuyDB();
-        product_db = new ProductDB();
-        license_db = new LicenseDB();
-    };
+    YebbixShop();
 };
 
 #endif //__YEBBIX_CLIENT_MAIN_H__

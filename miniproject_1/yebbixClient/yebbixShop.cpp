@@ -1,5 +1,11 @@
 #include "yebbixShop.h"
 YebbixShop* YebbixShop::instance = nullptr;
+YebbixShop::YebbixShop()
+{
+    buy_db = new BuyDB();
+    product_db = new ProductDB();
+    license_db = new LicenseDB();
+}
 void YebbixShop::show()
 {
     int col_num = 0;
@@ -8,14 +14,14 @@ void YebbixShop::show()
     
 
     cout << "\033[2J\033[1;1H";
-    cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                        YEBBIX : LICENSE                      " << endl;
     cout << "  [이전화면 : z ]                                              " <<endl;
-    cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
-    cout << endl << " 주문번호 | 라이센스명 | 내용 " << endl;
+    cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
+    cout << endl << " 주문번호 | 라이센스명 |               내용               | 가격 " << endl;
     for (auto& r : license_table) {
         col_num = 0;
-        for (vector<string>::iterator it = r.begin(); it != next(r.begin(),3); ++it){
+        for (vector<string>::iterator it = r.begin(); it != next(r.begin(),4); ++it){
             switch (col_num)
             {
             case 0:
@@ -25,6 +31,9 @@ void YebbixShop::show()
                 cout << setw(11)<< *it << " |";
                 break;
             case 2:
+                cout << setw(33)<< *it << " |";
+                break;
+            case 3:
                 cout << " "<< *it;
                 break;
             default:

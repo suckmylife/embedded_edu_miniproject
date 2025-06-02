@@ -29,7 +29,7 @@ private:
     static YebbixCriticRecord* instance;
     vector<vector<string>> all_table;
     RecordDB *record_db;
-    YebbixCriticRecord(){record_db = new RecordDB();}
+    YebbixCriticRecord();
 };
 
 #endif //__YEBBIX_CRITIC_RECORD_H__

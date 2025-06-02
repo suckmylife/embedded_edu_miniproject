@@ -1,5 +1,9 @@
 #include "yebbixCriticRecord.h"
 YebbixCriticRecord* YebbixCriticRecord::instance = nullptr;
+YebbixCriticRecord::YebbixCriticRecord()
+{
+    record_db = new RecordDB();
+}
 void YebbixCriticRecord::show()
 {
     int col_num = 0;

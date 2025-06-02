@@ -31,8 +31,8 @@ public:
     string getID() const { return id; }
     string getPSW() const { return psw; }
     
-    string setID(string &i)  { return id=i; }
-    string setPSW(string &p)  { return psw=p; }
+    void setID(string &i)  { id=i; }
+    void setPSW(string &p)  { psw=p; }
 
     static void destroyInstance();
     ~YebbixLogin();

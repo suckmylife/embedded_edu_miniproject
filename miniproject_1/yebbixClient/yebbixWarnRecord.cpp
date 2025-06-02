@@ -1,5 +1,9 @@
 #include "yebbixWarnRecord.h"
 YebbixWarnRecord* YebbixWarnRecord::instance = nullptr;
+YebbixWarnRecord::YebbixWarnRecord()
+{
+    record_db = new RecordDB();
+} 
 void YebbixWarnRecord::show()
 {
     int col_num = 0;
