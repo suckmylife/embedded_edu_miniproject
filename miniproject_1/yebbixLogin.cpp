@@ -75,7 +75,7 @@ bool YebbixLogin::confirm()
 
     if(!(id_v.empty()) && !(psw_v.empty()))
     {
-        setClientInfo(id_v);
+        YebbixUserManager::getInstance()->setLoginID(id);
         return true;
     }
         

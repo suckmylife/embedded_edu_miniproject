@@ -8,8 +8,9 @@
 #include "yebbixJoin.h"
 #include "yebbixLogin.h"
 #include "yebbixMain.h"
-
+#include "yebbixUserManager.h"
 #include "yebbixUI.h"
+
 
 #include "yebbixClient/yebbixClientMain.h"
 #include "yebbixClient/yebbixCriticRecord.h"

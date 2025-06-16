@@ -25,7 +25,7 @@ void YebbixClientMain::show()
 
 int YebbixClientMain::WhatRank()
 {
-    string userId = YebbixLogin::getInstance()->getID();
+    string userId = YebbixUserManager::getInstance()->getLoginID();
     vector<string> info = buy_db->load(userId);//물어보자
     if(!info.empty())
     {

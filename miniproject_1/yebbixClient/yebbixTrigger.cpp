@@ -9,7 +9,7 @@ YebbixTrigger::YebbixTrigger()
 
 void YebbixTrigger::show()
 {
-    all_table = trigger_db->load(YebbixLogin::getInstance()->getID());
+    all_table = trigger_db->load(YebbixUserManager::getInstance()->getLoginID());
     show_table(all_table);
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "             수정, 삭제를 할 ID를 골라 주세요             " << endl;
@@ -218,7 +218,7 @@ void YebbixTrigger::update()
     }
     vector<string> update_data;
     update_data.push_back(getTriggerID());
-    update_data.push_back(YebbixLogin::getInstance()->getID());
+    update_data.push_back(YebbixUserManager::getInstance()->getLoginID());
     update_data.push_back(getTriggerName());
     update_data.push_back(getTriggerCond());
     update_data.push_back(getTriggerStep());
@@ -307,7 +307,7 @@ void YebbixTrigger::add()
     default:
         break;
     }
-    trigger_db->add(YebbixLogin::getInstance()->getID(), tr_name,tr_cond,getTriggerStep());
+    trigger_db->add(YebbixUserManager::getInstance()->getLoginID(), tr_name,tr_cond,getTriggerStep());
     show();
     return;
 }

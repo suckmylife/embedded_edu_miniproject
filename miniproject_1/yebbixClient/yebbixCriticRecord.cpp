@@ -8,7 +8,7 @@ void YebbixCriticRecord::show()
 {
     int col_num = 0;
     string stat;
-    all_table = record_db->loadCritical(YebbixLogin::getInstance()->getID());
+    all_table = record_db->loadCritical(YebbixUserManager::getInstance()->getLoginID());
     cout << "\033[2J\033[1;1H";
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                     YEBBIX : CRITICAL RECORD                 " << endl;

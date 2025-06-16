@@ -11,7 +11,7 @@ void YebbixRecord::show()
 {
     int col_num = 0;
     string stat;
-    all_table = record_db->loadAll(YebbixLogin::getInstance()->getID());
+    all_table = record_db->loadAll(YebbixUserManager::getInstance()->getLoginID());
     cout << "\033[2J\033[1;1H";
     cout << "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << endl;
     cout << "                        YEBBIX : ALL RECORD                    " << endl;

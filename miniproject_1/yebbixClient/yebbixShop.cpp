@@ -111,7 +111,7 @@ void YebbixShop::buy_view()
         return;
     }
         
-    string userId = YebbixLogin::getInstance()->getID();
+    string userId = YebbixUserManager::getInstance()->getLoginID();
     // time_t : 시간을 초 단위로 저장하는 타입
     time_t now = time(nullptr);
 
@@ -158,7 +158,7 @@ void YebbixShop::destroyInstance(){
 
 vector<string> YebbixShop::getBuyInfo()
 {
-    string userId = YebbixLogin::getInstance()->getID();
+    string userId = YebbixUserManager::getInstance()->getLoginID();
     return buy_db->load(userId);
 }
 

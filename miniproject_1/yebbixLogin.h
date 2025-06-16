@@ -6,6 +6,7 @@
 
 #include "yebbixDatabase/clientDB.h"
 #include "yebbixClient\yebbixClientMain.h"
+#include "yebbixUserManager.h"
 
 #include "yebbixMain.h"
 #include "yebbixmanager.h"
