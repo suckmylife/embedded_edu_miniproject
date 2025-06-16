@@ -127,7 +127,7 @@ void YebbixShop::buy_view()
 
     //csv 갱신 
     if((product_db->load(userId)).empty())
-        product_db->save("new",buffer,"1.0.0");
+        product_db->save(userId,buffer,"v1.0.0");
     else
         product_db->update(userId,buffer);
     buy_db->save(userId,buffer,getOrderNum(),"today","someday",card_num,pin_num);
