@@ -87,7 +87,7 @@ vector<vector<string>> RecordDB::loadWarning(const string &client_ID)
     table = loadAll(client_ID);
     for(auto row = table.begin(); row!=table.end();){
         auto& row_it = *row;
-        bool found = find(row_it.begin(),row_it.end(),to_string(WARNING))!= row_it.end();
+        bool found = (row_it.back() == to_string(WARNING)) ? true : false;
         found ? ++row : (row = table.erase(row));
     }
 
@@ -102,7 +102,7 @@ vector<vector<string>> RecordDB::loadCritical(const string &client_ID)
     table = loadAll(client_ID);
     for(auto row = table.begin(); row!=table.end();){
         auto& row_it = *row;
-        bool found = find(row_it.begin(),row_it.end(),to_string(CRITICAL))!= row_it.end();
+        bool found = (row_it.back() == to_string(CRITICAL)) ? true : false;
         found ? ++row : (row = table.erase(row));
     }
     return table;
